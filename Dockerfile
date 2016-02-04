@@ -1,4 +1,5 @@
 FROM ubuntu
+
 COPY devbox /usr/bin/devbox
 COPY ctest /usr/bin/ctest
 RUN apt-get update
@@ -16,10 +17,11 @@ RUN cpanm Mojolicious
 WORKDIR /home/dev
 ENV HOME /home/dev
 
-VOLUME /home/dev/docker/certs
-#COPY certs /home/dev/docker/certs
+#RUN sudo gpasswd -a dev docker
 
-USER dev
+VOLUME /var/run/docker.sock
+
+#USER dev
 
 #RUN git clone https://github.com/tadzik/rakudobrew /home/dev/.rakudobrew
 #RUN /home/dev/.rakudobrew/rakudobrew build moar
