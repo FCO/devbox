@@ -1,0 +1,14 @@
+#!/bin/bash
+
+HOSTNAME=${1:-devbox}
+
+if [ -z "$(type docker-machine 2> /dev/null)" ]; then
+	OPTs="-e DOCKER_TLS_VERIFY=$DOCKER_TLS_VERIFY -e DOCKER_HOST=$DOCKER_HOST -e DOCKER_CERT_PATH=/home/dev/docker/certs -v /home/dev/docker/certs:/home/dev/docker/certs:ro -v /home/dev/save/$HOSTNAME:/home/dev/save:rw"
+else
+	MACHINE=$(docker-machine active)
+	OPTs=$(docker-machine env $MACHINE | perl -ne 'if(/^\s*export\s+(\w+)=("?)(.*)\2\s*$/) {$a{$1}=$3}}{print "-e $_=$a{$_} " for qw/DOCKER_TLS_VERIFY DOCKER_HOST/; print "-v $a{DOCKER_CERT_PATH}:/home/dev/docker/certs:ro -e DOCKER_CERT_PATH=/home/dev/docker/certs -v $HOME/devboxes/$HOSTNAME:/home/dev/save:rw"')
+	mkdir -p $HOME/devboxes/$HOSTNAME
+fi
+
+echo docker run -ti --rm $OPTs -e HOSTNAME=$HOSTNAME devbox
+docker run -ti --rm $OPTs -e HOSTNAME=$HOSTNAME devbox

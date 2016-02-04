@@ -1,0 +1,14 @@
+#!/bin/bash
+FILE=${1:-test}.c
+
+cat <<END >$FILE
+#include <stdio.h>
+
+main() {
+
+}
+
+END
+
+vim $FILE
+gcc $FILE && ./a.out
