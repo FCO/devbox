@@ -17,6 +17,12 @@ RUN cpanm Mojolicious
 WORKDIR /home/dev
 ENV HOME /home/dev
 
+RUN curl -Lvk -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.tar.gz > /tmp/jdk8.tgz
+RUN tar zxf /tmp/jdk8.tgz -C /usr/local/
+RUN rm -f /tmp/jdk8.tgz
+ENV JAVA_HOME "/usr/local/jdk1.8.0_73"
+ENV PATH $PATH:"/usr/local/jdk1.8.0_73/bin"
+
 #RUN sudo gpasswd -a dev docker
 
 VOLUME /var/run/docker.sock
