@@ -1,11 +1,11 @@
 #!/bin/bash
 FILE=${1:-test}.c
 
-cat <<END >$FILE
+[ -f $FILE ] || cat <<END >$FILE
 #include <stdio.h>
 
 main() {
-
+	printf("$FILE\n");
 }
 
 END
