@@ -7,7 +7,7 @@ RUN apt-get install -y apt-transport-https
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 RUN echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list
 RUN apt-get update
-RUN apt-get install -y build-essential git vim perl gcc nodejs nodejs-legacy docker-engine curl
+RUN apt-get install -y build-essential git vim perl gcc nodejs nodejs-legacy docker-engine curl python3-pip
 
 RUN useradd dev
 RUN mkdir /home/dev
@@ -23,6 +23,8 @@ RUN rm -f /tmp/jdk8.tgz
 ENV JAVA_HOME "/usr/local/jdk1.8.0_73"
 ENV PATH $PATH:"/usr/local/jdk1.8.0_73/bin"
 COPY jtest /usr/bin/jtest
+
+RUN pip3 install virtualenv
 
 #RUN sudo gpasswd -a dev docker
 
