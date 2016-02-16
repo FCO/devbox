@@ -1,0 +1,15 @@
+#!/bin/bash
+FILENAME=${1:-Test}
+FILE=$FILENAME.java
+
+cat <<END >$FILE
+public class $FILENAME { 
+	public static void main(String[] args) {
+
+	}
+}
+END
+
+vim $FILE
+javac $FILE && java $FILENAME
+

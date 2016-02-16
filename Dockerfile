@@ -22,6 +22,7 @@ RUN tar zxf /tmp/jdk8.tgz -C /usr/local/
 RUN rm -f /tmp/jdk8.tgz
 ENV JAVA_HOME "/usr/local/jdk1.8.0_73"
 ENV PATH $PATH:"/usr/local/jdk1.8.0_73/bin"
+COPY jtest /usr/bin/jtest
 
 #RUN sudo gpasswd -a dev docker
 
