@@ -1,0 +1,5 @@
+#!/bin/bash
+echo 'cat <<END > /usr/local/bin/devbox'
+cat /usr/bin/devbox | perl -pe 's/\$/\\\$/g'
+echo END
+echo 'chmod 755 /usr/local/bin/devbox'

@@ -9,5 +9,8 @@ else
 	mkdir -p $HOME/devboxes/$HOSTNAME
 fi
 
-#echo docker run -v /var/run/docker.sock:/var/run/docker.sock -ti --rm $OPTs -h $HOSTNAME devbox
-docker run -v /var/run/docker.sock:/var/run/docker.sock -ti --rm $OPTs -h $HOSTNAME devbox
+NETWORK=$(docker network create $HOSTNAME 2> /dev/null)
+docker run -v /var/run/docker.sock:/var/run/docker.sock -ti --rm $OPTs --net=$HOSTNAME -h $HOSTNAME fernandocorrea/devbox
+if [ x$NETWORK != x ]; then
+	docker network rm $HOSTNAME
+fi

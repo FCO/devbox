@@ -1,13 +1,11 @@
 FROM ubuntu
 
-COPY devbox /usr/bin/devbox
-COPY ctest /usr/bin/ctest
 RUN apt-get update
 RUN apt-get install -y apt-transport-https
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 RUN echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list
 RUN apt-get update
-RUN apt-get install -y build-essential git vim perl gcc nodejs nodejs-legacy docker-engine curl python3-pip
+RUN apt-get install -y build-essential git vim perl gcc nodejs nodejs-legacy docker-engine curl postgresql-client mysql-client redis-tools python3-pip
 
 RUN useradd dev
 RUN mkdir /home/dev
@@ -33,9 +31,14 @@ VOLUME /var/run/docker.sock
 #USER dev
 
 #RUN git clone https://github.com/tadzik/rakudobrew /home/dev/.rakudobrew
-#RUN /home/dev/.rakudobrew/rakudobrew build moar
-#RUN /home/dev/.rakudobrew/rakudobrew build panda
+##ENV PATH $PATH:/home/dev/.rakudobrew/bin
+#RUN /home/dev/.rakudobrew/bin/rakudobrew build moar
+#RUN /home/dev/.rakudobrew/bin/rakudobrew build panda
 #
-#RUN panda install Task::Star
+#RUN /home/dev/.rakudobrew/bin/panda install Task::Star
+
+COPY devbox /usr/bin/devbox
+COPY create_devbox /usr/bin/create_devbox
+COPY ctest /usr/bin/ctest
 
 CMD bash
