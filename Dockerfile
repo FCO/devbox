@@ -1,11 +1,11 @@
-FROM ubuntu
+FROM phusion/baseimage
 
 RUN apt-get update
 RUN apt-get install -y apt-transport-https
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 RUN echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list
 RUN apt-get update
-RUN apt-get install -y build-essential git vim perl gcc nodejs nodejs-legacy docker-engine curl postgresql-client mysql-client redis-tools python3-pip
+RUN apt-get install -y build-essential git vim perl gcc nodejs nodejs-legacy docker-engine curl postgresql-client mysql-client redis-tools python3-pip dnsutils
 
 RUN useradd dev
 RUN mkdir /home/dev
@@ -40,5 +40,10 @@ VOLUME /var/run/docker.sock
 COPY devbox /usr/bin/devbox
 COPY create_devbox /usr/bin/create_devbox
 COPY ctest /usr/bin/ctest
+COPY ptest /usr/bin/ptest
 
 CMD bash
+
+RUN ln -s /bin/bash /etc/service/bash
+#CMD ["/sbin/my_init"]
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
