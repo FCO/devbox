@@ -39,8 +39,9 @@ public class Test {
 ```
 
 Available languages:
-    * C
-    * Java
+
+* C
+* Java
 
 ### Execute a container inside a docker network:
 ```bash
